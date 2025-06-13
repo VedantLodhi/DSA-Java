@@ -1,0 +1,71 @@
+//  -------------------->  OPTIMIZED SOLUTION  <--------------------
+// Java solution to find the K most frequent elements in an array
+import java.util.*;
+
+class Solution 
+{
+    // Inner class to store number and its frequency
+    class Pair implements Comparable<Pair> 
+    {
+        int num, count;
+        
+        // Constructor to initialize Pair
+        Pair(int num, int count) 
+        {
+            this.num = num;
+            this.count = count;
+        }
+
+        // Comparable implementation to sort based on frequency (ascending order)
+        public int compareTo(Pair other)
+        {
+            return this.count - other.count;
+        }
+    }
+
+    // Main function to return top K frequent elements
+    public int[] topKFrequent(int[] nums, int k)
+    {
+        // Step 1: Count the frequency of each number using HashMap
+        HashMap<Integer, Integer> map = new HashMap<>();
+
+        for (int num : nums)
+        {
+            // Increment count or initialize with 1
+            map.put(num, map.getOrDefault(num, 0) + 1);
+        }
+
+        // Step 2: Use a min-heap (PriorityQueue) to store top K frequent elements
+        PriorityQueue<Pair> pq = new PriorityQueue<>();
+        Set<Integer> keys = map.keySet(); // Get all unique numbers
+
+        for (int key : keys)
+        {
+            Pair p = new Pair(key, map.get(key));
+
+            if (pq.size() < k)
+            {
+                // If heap has less than k elements, just add
+                pq.add(p);
+            } else if (pq.peek().count < map.get(key)) 
+            {
+                // If current element's frequency is higher than the smallest in heap
+                pq.poll();        // Remove the smallest
+                pq.add(p);        // Add the new larger one
+            }
+        }
+
+        // Step 3: Extract elements from heap into result array
+        int[] result = new int[k];
+        int i = k - 1;
+
+        while (i >= 0)
+        {
+            result[i] = pq.poll().num;
+            i--;
+        }
+
+        // Return the array of top K frequent elements
+        return result;
+    }
+}
