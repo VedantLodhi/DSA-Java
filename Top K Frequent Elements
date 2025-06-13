@@ -1,5 +1,9 @@
+//    BOTH OPTIMIZED AND BRUTE FORCE SOLUTIONS 
+
 //  -------------------->  OPTIMIZED SOLUTION  <--------------------
-// Java solution to find the K most frequent elements in an array
+
+//   TIME COMPLEXITY :-  O(n + n log k)  and SPACE COMPLEXITY :- O(n)
+
 import java.util.*;
 
 class Solution 
@@ -69,3 +73,41 @@ class Solution
         return result;
     }
 }
+
+
+
+// --------------------> BRUTE FORCE APPROACH <--------------------
+
+// TIME COMPLEXITY :-  O(n log n)  and SPACE COMPLEXITY :- O(n)
+
+import java.util.*;
+
+class Solution {
+    public int[] topKFrequent(int[] nums, int k) {
+
+        // Step 1: Count frequency of each element using a HashMap
+        HashMap<Integer, Integer> freqMap = new HashMap<>();
+        for (int num : nums) {
+            freqMap.put(num, freqMap.getOrDefault(num, 0) + 1);
+        }
+
+        // Step 2: Convert map entries to a list so we can sort them
+        List<Map.Entry<Integer, Integer>> freqList = new ArrayList<>(freqMap.entrySet());
+
+        // Step 3: Sort the list in descending order based on frequency
+        Collections.sort(freqList, (a, b) -> b.getValue() - a.getValue());
+
+        // Step 4: Prepare result array with top K elements
+        int[] result = new int[k];
+        for (int i = 0; i < k; i++) {
+            result[i] = freqList.get(i).getKey();
+        }
+
+        return result;
+    }
+}
+
+
+
+
+
