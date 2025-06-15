@@ -1,0 +1,104 @@
+//  --------------------> OPTIMIZED SOLUTION <--------------------
+
+//  TIME COMPLEXITY :  O(m) , where m = total number of characters across all strings.
+SPACE COMEPLEXITY : O(n + m) , where n = number of strings in the list.
+
+import java.util.*;
+class Solution 
+{
+//  ENCODES A LIST OF STRINGS TO A SINGLE STRING.
+
+    public String encode(List<String> strs) 
+{
+        // Special character to represent an empty list
+        if (strs.size() == 0) {
+            return Character.toString((char) 258);
+        }
+
+        // Delimiter character used to separate strings (char 257 is a rarely used Unicode char)
+        String separate = Character.toString((char) 257);
+        StringBuilder sb = new StringBuilder();
+
+        // Append each string followed by the separator
+        for (String s : strs) {
+            sb.append(s);
+            sb.append(separate);
+        }
+
+        // Remove the trailing separator
+        sb.deleteCharAt(sb.length() - 1);
+
+        return sb.toString();
+    }
+
+//  DECODE A SINGLE STRING TO A LIST OF STRINGS.
+
+    public List<String> decode(String str) 
+{
+        // Handle the special case for an empty list
+        if (str.equals(Character.toString((char) 258))) 
+{
+            return new ArrayList<>();
+        }
+
+        // Use the same separator that was used during encoding
+        String separate = Character.toString((char) 257);
+
+        // Split the string using the separator to retrieve original strings
+        return Arrays.asList(str.split(separate, -1));
+    }
+}
+
+//  --------------------> BRUTE FORCE APPROACH <--------------------
+
+//  TIME COMPLEXITY :  O(L) , SPACE COMEPLEXITY : O(L) , 
+     where L = total number of characters in all input strings combined.
+ 
+
+import java.util.*;
+
+public class Codec
+{
+//  ENCODES A LIST OF STRINGS TO A SINGLE STRING.
+    public String encode(List<String> strs) {
+        StringBuilder sb = new StringBuilder();
+
+        // Append each string with its length followed by '|'
+        for (String s : strs) {
+            sb.append(s.length()).append('|').append(s);
+        }
+
+        return sb.toString();
+    }
+
+  // DECODE A SINGLE STRING TO A LIST OF STRINGS.
+    public List<String> decode(String s) {
+        List<String> result = new ArrayList<>();
+        int i = 0;
+
+        // Parse each string using its length prefix
+        while (i < s.length()) {
+            int j = i;
+
+            // Move j to find the position of delimiter '|'
+            while (s.charAt(j) != '|') {
+                j++;
+            }
+
+            // Extract the length of the string
+            int length = Integer.parseInt(s.substring(i, j));
+
+            // Extract the actual string using the length
+            String str = s.substring(j + 1, j + 1 + length);
+            result.add(str);
+
+            // Move pointer i to the start of the next encoded string
+            i = j + 1 + length;
+        }
+
+        return result;
+    }
+}
+
+
+
