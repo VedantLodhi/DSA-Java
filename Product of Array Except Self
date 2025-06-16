@@ -1,0 +1,34 @@
+//  --------------------> BRUTE FORCE APPROACH <--------------------
+// TIME COMPLEXITY : O(n²)  , SPACE COMPLEXITY : O(n) 
+
+class Solution 
+{
+    public int[] productExceptSelf(int[] nums)
+{
+        int n = nums.length; // Get the length of the input array
+
+        // Initialize the result array with default values 
+        int[] ans = new int[n];
+
+        // Iterate through each element of the input array
+        for (int i = 0; i < n; i++) {
+            int product = 1; // Variable to store product for index i
+
+            // Multiply all elements except the one at index i
+            for (int j = 0; j < n; j++) 
+         {
+                if (i != j) 
+               {
+                  product *= nums[j];
+                }
+            }
+
+            // Store the product in the result array
+            ans[i] = product;
+        }
+
+        // Return the final result array
+        return ans;
+    }
+}
+
