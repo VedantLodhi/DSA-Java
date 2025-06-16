@@ -1,3 +1,43 @@
+//  --------------------> OPTIMIZED APPROACH <--------------------
+// TIME COMPLEXITY : O(n)  , SPACE COMPLEXITY : O(1) 
+
+class Solution
+{
+    public int[] productExceptSelf(int[] nums) 
+{
+        int n = nums.length;
+        int[] ans = new int[n];
+
+        // Step 1: Initialize all elements of result array as 1
+      
+        for (int i = 0; i < n; i++)
+       {
+            ans[i] = 1;
+        }
+
+        // Step 2: Calculate prefix product for each index
+        // ans[i] will contain the product of all elements to the left of i
+        
+        for (int i = 1; i < n; i++)
+        {
+          ans[i] = ans[i - 1] * nums[i - 1];
+        }
+
+        // Step 3: Multiply with suffix product
+        // We traverse from right to left to keep track of product of elements to the right
+       
+        int suffix = 1;
+        for (int i = n - 2; i >= 0; i--) 
+        {
+            suffix *= nums[i + 1];   // product of all elements to the right of i
+            ans[i] *= suffix;        // final product excluding self = prefix * suffix
+        }
+
+        return ans;
+    }
+}
+
+
 //  --------------------> BRUTE FORCE APPROACH <--------------------
 // TIME COMPLEXITY : O(n²)  , SPACE COMPLEXITY : O(n) 
 
