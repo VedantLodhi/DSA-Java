@@ -1,4 +1,5 @@
 //  --------------------> OPTIMIZED APPROACH <--------------------
+//   TIME COMPLEXITY : 	O(1) , SPACE COMPLEXITY : O(1) 
 
 class Solution {
     public boolean isValidSudoku(char[][] board)
@@ -34,3 +35,59 @@ class Solution {
          return true ; 
     }
 }
+
+//  --------------------> BRUTE FORCE APPROACH <--------------------
+// TIME COMPLEXITY : 	O(1) , SPACE COMPLEXITY : O(1) 
+
+class Solution {
+    // Function to check whether the Sudoku board is valid
+    public boolean isValidSudoku(char[][] board) {
+
+        // Check each row for duplicates
+        for (int i = 0; i < 9; i++) {
+            for (char ch = '1'; ch <= '9'; ch++) {
+                int count = 0;
+                for (int j = 0; j < 9; j++) {
+                    if (board[i][j] == ch) {
+                        count++;
+                    }
+                }
+                if (count > 1) return false; // duplicate found in row
+            }
+        }
+
+        // Check each column for duplicates
+        for (int j = 0; j < 9; j++) {
+            for (char ch = '1'; ch <= '9'; ch++) {
+                int count = 0;
+                for (int i = 0; i < 9; i++) {
+                    if (board[i][j] == ch) {
+                        count++;
+                    }
+                }
+                if (count > 1) return false; // duplicate found in column
+            }
+        }
+
+        // Check each 3x3 subgrid for duplicates
+        for (int blockRow = 0; blockRow < 9; blockRow += 3) {
+            for (int blockCol = 0; blockCol < 9; blockCol += 3) {
+                for (char ch = '1'; ch <= '9'; ch++) {
+                    int count = 0;
+                    for (int i = 0; i < 3; i++) {
+                        for (int j = 0; j < 3; j++) {
+                            if (board[blockRow + i][blockCol + j] == ch) {
+                                count++;
+                            }
+                        }
+                    }
+                    if (count > 1) return false; // duplicate in subgrid
+                }
+            }
+        }
+
+        // If all checks passed, the board is valid
+        return true;
+    }
+}
+
