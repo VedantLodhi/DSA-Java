@@ -1,0 +1,69 @@
+
+//  --------------------> OPTIMIZED APPROACH <--------------------
+
+// TIME COMPLEXITY : 	O(n) , SPACE COMPLEXITY : O(n) 
+
+class Solution {
+    public int longestConsecutive(int[] nums)
+{
+        // HashSet for O(1) lookup to check if a number exists
+        HashSet<Integer> set = new HashSet<>();
+        for (int num : nums) {
+            set.add(num);
+        }
+
+        int maxLength = 0 ;
+
+        // Loop through each number to find potential start of a sequence
+        for (int num : set) {
+            // Start a sequence only if previous number doesn't exist
+            if (!set.contains(num - 1)) {
+                int currentNum = num;
+                int count = 1;
+
+                // Count all consecutive numbers
+                while (set.contains(currentNum + 1)) {
+                    currentNum++;
+                    count++;
+                }
+
+                // Update the longest sequence length
+                maxLength = Math.max(maxLength, count);
+            }
+        }
+
+        return maxLength;
+    }
+}
+
+
+//  --------------------> BRUTE FORCE APPROACH <--------------------
+
+// TIME COMPLEXITY : 	O(n logn) , SPACE COMPLEXITY : O(n) 
+
+import java.util.*;
+public class Solution 
+{
+    public List<List<String>> groupAnagrams(String[] strs) {
+        // HashMap to hold the sorted string as key and list of anagrams as value
+        Map<String, List<String>> res = new HashMap<>();
+
+        // Iterate over each string in the input array
+        for (String s : strs) 
+{
+            // Convert string to character array and sort it
+            char[] charArray = s.toCharArray();
+            Arrays.sort(charArray);
+
+            // Convert sorted char array back to string
+            String sortedS = new String(charArray);
+
+            // Add the original string to the corresponding anagram group
+            res.putIfAbsent(sortedS, new ArrayList<>());
+            res.get(sortedS).add(s);
+        }
+
+        // Return the list of anagram groups
+        return new ArrayList<>(res.values());
+    }
+}
