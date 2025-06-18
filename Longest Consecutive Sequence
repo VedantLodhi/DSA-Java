@@ -41,29 +41,38 @@ class Solution {
 
 // TIME COMPLEXITY : 	O(n logn) , SPACE COMPLEXITY : O(n) 
 
-import java.util.*;
-public class Solution 
-{
-    public List<List<String>> groupAnagrams(String[] strs) {
-        // HashMap to hold the sorted string as key and list of anagrams as value
-        Map<String, List<String>> res = new HashMap<>();
+import java.util.Arrays;
 
-        // Iterate over each string in the input array
-        for (String s : strs) 
-{
-            // Convert string to character array and sort it
-            char[] charArray = s.toCharArray();
-            Arrays.sort(charArray);
+class Solution {
+    public int longestConsecutive(int[] nums) {
+        if (nums.length == 0) return 0;
 
-            // Convert sorted char array back to string
-            String sortedS = new String(charArray);
+        // Step 1: Sort the array to bring consecutive numbers together
+        Arrays.sort(nums);
 
-            // Add the original string to the corresponding anagram group
-            res.putIfAbsent(sortedS, new ArrayList<>());
-            res.get(sortedS).add(s);
+        int maxLen = 1;
+        int currLen = 1;
+
+        // Step 2: Traverse the sorted array to count consecutive elements
+        for (int i = 1; i < nums.length; i++) {
+            // Skip duplicates
+            if (nums[i] == nums[i - 1]) {
+                continue;
+            }
+            // Check if the current number is consecutive to the previous
+            else if (nums[i] == nums[i - 1] + 1) {
+                currLen++;
+            } else {
+                // Reset the current length if sequence breaks
+                currLen = 1;
+            }
+
+            // Update the max length so far
+            maxLen = Math.max(maxLen, currLen);
         }
 
-        // Return the list of anagram groups
-        return new ArrayList<>(res.values());
+        return maxLen;
     }
 }
+
+
