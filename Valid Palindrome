@@ -1,0 +1,37 @@
+// TIME COMPLEXITY : O(n) , SPACE COMPLEXITY : O(n)
+
+class Solution 
+{
+    public boolean isPalindrome(String s) 
+    {
+        // Convert the entire string to lowercase to ensure case insensitivity
+        s = s.toLowerCase();
+
+        // StringBuilder to store only the alphanumeric characters
+        StringBuilder sb = new StringBuilder();   
+
+        // Loop through each character of the string
+        for (int i = 0; i < s.length(); i++) 
+        {
+            // Check if the character is a lowercase letter (a-z) or a digit (0-9)
+            if ((s.charAt(i) >= 97 && s.charAt(i) <= 122) || (s.charAt(i) >= 48 && s.charAt(i) <= 57)) 
+            {
+                // Append only valid characters to StringBuilder
+                sb.append(s.charAt(i)); 
+            }
+        }    
+
+        // Check for palindrome: compare characters from both ends
+        for (int i = 0; i < sb.length() / 2; i++) 
+        {
+            // If characters at mirrored positions don't match, it's not a palindrome
+            if (sb.charAt(i) != sb.charAt(sb.length() - 1 - i)) 
+            {
+                return false; 
+            }
+        }
+
+        // If all characters matched, return true
+        return true; 
+    }
+}
