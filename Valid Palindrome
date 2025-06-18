@@ -1,35 +1,26 @@
 // --------------------> MOST OPTIMIZED APPROACH (USING TWO POINTER) <--------------------
 // TIME COMPLEXITY : O(n) , SPACE COMPLEXITY : O(1)
 
-class Solution
-{
-    // Checks if a given string is a valid palindrome
+class Solution {
     public boolean isPalindrome(String s) {
-
-        // Convert the string to lowercase to ignore case sensitivity
         s = s.toLowerCase();
-
-        // Use StringBuilder to store only alphanumeric characters
-        StringBuilder filtered = new StringBuilder();
-
-        // Filter out non-alphanumeric characters
-        for (int i = 0; i < s.length(); i++) {
-            char ch = s.charAt(i);
-
-            // Check if the character is a lowercase letter or digit
-            if ((ch >= 'a' && ch <= 'z') || (ch >= '0' && ch <= '9')) {
-                filtered.append(ch);
-            }
-        }
-
-        // Check if the filtered string is a palindrome
-        int left = 0;
-        int right = filtered.length() - 1;
+        int left = 0, right = s.length() - 1;
 
         while (left < right) {
-            if (filtered.charAt(left) != filtered.charAt(right)) {
+            // Skip non-alphanumeric on left
+            while (left < right && !Character.isLetterOrDigit(s.charAt(left))) {
+                left++;
+            }
+            // Skip non-alphanumeric on right
+            while (left < right && !Character.isLetterOrDigit(s.charAt(right))) {
+                right--;
+            }
+
+            if (s.charAt(left) != s.charAt(right)) 
+            {
                 return false;
             }
+
             left++;
             right--;
         }
@@ -37,6 +28,7 @@ class Solution
         return true;
     }
 }
+
 
 // -------------------->  OPTIMIZED APPROACH <--------------------
 // TIME COMPLEXITY : O(n) , SPACE COMPLEXITY : O(n)
