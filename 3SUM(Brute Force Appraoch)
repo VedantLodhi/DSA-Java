@@ -1,0 +1,38 @@
+// --------------------> BRUTE FORCE APPROACH <--------------------
+// TLE MAAREGA BECAUSE OF TIME COMPLEXITY : O(n³) , SPACE COMPLEXITY : O(Unique Triplet)
+
+import java.util.*;
+
+public class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        int n = nums.length;
+        List<List<Integer>> result = new ArrayList<>();
+        Set<List<Integer>> set = new HashSet<>();
+
+        for (int i = 0; i < n; i++)
+         {
+            for (int j = i + 1; j < n; j++) 
+            {
+                for (int k = j + 1; k < n; k++) 
+                {
+                    // ✅ Check if the sum of triplet is 0
+                    if (nums[i] + nums[j] + nums[k] == 0) 
+                    {
+                        List<Integer> triplet = Arrays.asList(nums[i], nums[j], nums[k]);
+                        Collections.sort(triplet); // sort to avoid duplicate permutations
+
+                        // ✅ Only add unique triplets using a HashSet
+                        if (!set.contains(triplet)) {
+                            set.add(triplet);
+                            result.add(triplet);
+                        }
+                    }
+                }
+            }
+        }
+
+        return result;
+    }
+}
+
+
