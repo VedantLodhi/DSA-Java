@@ -15,13 +15,13 @@ public class Solution {
             {
                 for (int k = j + 1; k < n; k++) 
                 {
-                    // ✅ Check if the sum of triplet is 0
+                    //  Check if the sum of triplet is 0
                     if (nums[i] + nums[j] + nums[k] == 0) 
                     {
                         List<Integer> triplet = Arrays.asList(nums[i], nums[j], nums[k]);
                         Collections.sort(triplet); // sort to avoid duplicate permutations
 
-                        // ✅ Only add unique triplets using a HashSet
+                        //  Only add unique triplets using a HashSet
                         if (!set.contains(triplet)) {
                             set.add(triplet);
                             result.add(triplet);
