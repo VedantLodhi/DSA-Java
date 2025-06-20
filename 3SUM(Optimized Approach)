@@ -1,4 +1,4 @@
-// --------------------> BRUTE FORCE APPROACH <--------------------
+// --------------------> OPTIMIZED APPROACH <--------------------
 // TIME COMPLEXITY : O(nlog(n)*n²) , SPACE COMPLEXITY : O(Unique Triplet)
 
 import java.util.*;
