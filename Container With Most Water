@@ -1,1 +1,63 @@
+// --------------------> OPTIMIZED APPROACH <--------------------
+// TIME COMPLEXITY : O(n) , SPACE COMPLEXITY : O(1)
 
+class Solution 
+{
+    public int maxArea(int[] height) 
+{
+        int i = 0;                      // Left pointer
+        int j = height.length - 1;     // Right pointer
+        int max = 0;                   // To store the maximum area
+
+        // Iterate until the two pointers meet
+        while (i < j) {
+            int leftHeight = height[i];
+            int rightHeight = height[j];
+
+            // Calculate area with current boundaries
+            int minHeight = Math.min(leftHeight, rightHeight);
+            int width = j - i;
+            int area = minHeight * width;
+
+            // Update max area if this is larger
+            max = Math.max(max, area);
+
+            // Move the pointer at the shorter line inward
+            if (leftHeight < rightHeight) 
+              {
+                i++;
+              } 
+            else 
+            {
+                j--;
+            }
+        }
+
+        return max;
+    }
+}
+
+// --------------------> BRUTE FORCE APPROACH <--------------------
+// TIME COMPLEXITY : O(n²) , SPACE COMPLEXITY : O(1)
+
+class Solution 
+{
+    public int maxArea(int[] height) 
+ {
+        int max = 0;
+
+        for (int i = 0; i < height.length; i++)
+        {
+          for (int j = i + 1; j < height.length; j++) 
+        {
+             int minHeight = Math.min(height[i], height[j]);
+             int width = j - i;
+             int area = minHeight * width;
+
+              // Update max area if needed
+              max = Math.max(max, area);
+            }
+        }
+          return max;
+    }
+}
