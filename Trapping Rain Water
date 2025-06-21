@@ -1,0 +1,27 @@
+class Solution {
+    // Function to calculate total trapped rain water using two-pointer approach
+    public int trap(int[] height) {
+        int left = 0;
+        int right = height.length - 1;
+        int leftMax = height[left];
+        int rightMax = height[right];
+        int totalWater = 0;
+
+        // Traverse the height array from both ends
+        while (left < right) {
+            if (height[left] < height[right]) {
+                // Water trapped depends on the leftMax
+                leftMax = Math.max(leftMax, height[left]);
+                totalWater += leftMax - height[left];
+                left++;
+            } else {
+                // Water trapped depends on the rightMax
+                rightMax = Math.max(rightMax, height[right]);
+                totalWater += rightMax - height[right];
+                right--;
+            }
+        }
+
+        return totalWater;
+    }
+}
