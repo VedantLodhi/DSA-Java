@@ -1,37 +1,30 @@
 // --------------------> OPTIMIZED APPROACH <--------------------
 // TIME COMPLEXITY : O(n) , SPACE COMPLEXITY : O(k)
 
-import java.util.HashMap;
+class Solution {
+    public int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> map = new HashMap<>();
+        int start = 0, maxLen = 0;
 
-class Solution 
-{
-    public int lengthOfLongestSubstring(String s) 
-{
-        HashMap<Character, Integer> map = new HashMap<>() ;
-        int maxLen = 0;
-        int start = 0; // Left boundary of window
+        for (int end = 0; end < s.length(); end++) {
+            char ch = s.charAt(end);
 
-        for (int end = 0; end < s.length(); end++) 
-        {
-            char current = s.charAt(end);
-
-            // If duplicate character found inside window
-            if (map.containsKey(current)) 
-          {
-                // Move start to one past the last index of this character
-                start = Math.max(start, map.get(current) + 1);
+            // If character is already in window, move start
+            if (map.containsKey(ch)) {
+                start = Math.max(start, map.get(ch) + 1);
             }
 
-            // Store/update character's latest index
-            map.put(current, end);
+            // Update character's latest index
+            map.put(ch, end);
 
-            // Update max length of valid window
-            maxLen = Math.max(maxLen, end - start + 1) ;
+            // Update max length of substring
+            maxLen = Math.max(maxLen, end - start + 1);
         }
 
         return maxLen;
     }
 }
+
 
 
 // --------------------> BRUTE FORCE APPROACH <--------------------
